@@ -113,9 +113,8 @@ public class ModelGesture : MonoBehaviour
         if (gesture.State == GestureRecognizerState.Ended)
         {
             Debug.LogFormat("Tapped at {0}, {1}", gesture.FocusX, gesture.FocusY);
-            
-            //开始
-            Launch.Instance.OnClickModel();
+
+            Launch.Instance.OnTap(gesture);
         }
     }
 
