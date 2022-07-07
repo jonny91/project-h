@@ -19,6 +19,12 @@ public class Launch : MonoBehaviour
 {
     private ApplicationState State;
 
+    /// <summary>
+    /// 当前显示的对象
+    /// </summary>
+    [SerializeField]
+    private GameObject _currentShowModel;
+
     [SerializeField]
     private Transform ShowPos;
 
@@ -70,6 +76,23 @@ public class Launch : MonoBehaviour
                 MoveToMenu(clickedObject);
             }
         }
+        else if (State == ApplicationState.Show)
+        {
+            var modelData = clickedObject.GetComponent<ModelData>();
+            if (modelData)
+            {
+                MoveToCenter(clickedObject);
+                MoveToMenu(clickedObject);
+            }
+        }
+    }
+
+    public void HandleRotate(float rotateZ)
+    {
+        if (_currentShowModel != null)
+        {
+            _currentShowModel.transform.Rotate(0, 0, rotateZ);
+        }
     }
 
     /// <summary>
@@ -80,8 +103,10 @@ public class Launch : MonoBehaviour
     {
         clickedObject.transform.parent = ShowPos;
         clickedObject.transform.DOLocalMove(Vector3.zero, ShowTime);
-
+        clickedObject.transform.localScale = Vector3.one;
         clickedObject.GetComponent<Animator>().SetBool("show", true);
+
+        _currentShowModel = clickedObject;
     }
 
     private void MoveToMenu(GameObject clickedObject)
@@ -95,7 +120,7 @@ public class Launch : MonoBehaviour
             {
                 var menuPos = MenuPosArr[menuIndex];
                 m.transform.parent = menuPos;
-
+                m.transform.localScale = Vector3.one;
                 m.transform.DOLocalMove(Vector3.zero, ShowTime);
                 m.GetComponent<Animator>().SetBool("show", false);
                 m.GetComponent<Animator>().SetTrigger("idle");
@@ -113,9 +138,11 @@ public class Launch : MonoBehaviour
             var targetPosTrans = HomePosArr[modelIndex.Index];
             m.transform.SetParent(targetPosTrans);
             m.transform.DOLocalMove(Vector3.zero, ShowTime);
-
+            m.transform.localScale = Vector3.one;
             m.GetComponent<Animator>().SetBool("show", true);
         }
+
+        _currentShowModel = null;
     }
 
     public void Start()

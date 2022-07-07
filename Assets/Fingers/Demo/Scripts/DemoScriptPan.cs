@@ -47,7 +47,7 @@ namespace DigitalRubyShared
 
         private void Start()
         {
-             pan = new PanGestureRecognizer();
+            pan = new PanGestureRecognizer();
             pan.StateUpdated += Pan_Updated;
             pan.MaximumNumberOfTouchesToTrack = 2;
             FingersScript.Instance.AddGesture(pan);

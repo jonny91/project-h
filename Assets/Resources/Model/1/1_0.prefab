@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1695023918256560944}
   - component: {fileID: -5480467061747883327}
-  - component: {fileID: 5967548534459757954}
   - component: {fileID: 4415977486937738465}
   m_Layer: 0
   m_Name: 1_0
@@ -49,20 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Classify: 1
   Index: 0
---- !u!114 &5967548534459757954
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1695023918256560951}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2006bf452dcd45f8bdaee844f6565ad0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Classify: 0
-  Index: 0
+  StopAutoRotate: 0
 --- !u!95 &4415977486937738465
 Animator:
   serializedVersion: 4

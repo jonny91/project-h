@@ -10,4 +10,9 @@ public class ModelData : MonoBehaviour
     /// 模型名字
     /// </summary>
     public int Index;
+
+    /// <summary>
+    /// 停止自动旋转
+    /// </summary>
+    public bool StopAutoRotate;
 }

@@ -12,21 +12,50 @@ public class ModelGesture : MonoBehaviour
     private ScaleGestureRecognizer scaleGesture;
     private RotateGestureRecognizer rotateGesture;
     private LongPressGestureRecognizer longPressGesture;
+    
+    /// <summary>
+    /// The min speed before re-enabling threshold units on the pan gesture
+    /// </summary>
+    [Range(0.0f, 1.0f)]
+    [Tooltip("The min speed before re-enabling threshold units on the pan gesture")]
+    public float MinimumSpeedBeforeThresholdUnitsIsReEnabled;
+
+    /// <summary>
+    /// The min time before re-enabling threshold units on the pan gesture
+    /// </summary>
+    [Range(0.0f, 1.0f)]
+    [Tooltip("The min time before re-enabling threshold units on the pan gesture")]
+    public float MinimumTimeBeforeThresholdUnitsIsEnabled;
 
     private void Start()
     {
-        CreateTapGesture();
-        CreateSwipeGesture();
         CreatePanGesture();
-        CreateScaleGesture();
-        CreateRotateGesture();
+        CreateTapGesture();
+        // CreateSwipeGesture();
+        // CreateScaleGesture();
+        // CreateRotateGesture();
+    }
+
+    private void Update()
+    {
+        panGesture.SpeedUnitsToRestartThresholdUnits = MinimumSpeedBeforeThresholdUnitsIsReEnabled;
+        panGesture.TimeToRestartThresholdUnits = MinimumTimeBeforeThresholdUnitsIsEnabled;
+    }
+    
+    private void CreatePanGesture()
+    {
+        panGesture = new PanGestureRecognizer();
+        panGesture.StateUpdated += PanGestureCallback;
+        panGesture.MaximumNumberOfTouchesToTrack = 2;
+        FingersScript.Instance.AddGesture(panGesture);
     }
 
     private void CreateTapGesture()
     {
         tapGesture = new TapGestureRecognizer();
         tapGesture.StateUpdated += TapGestureCallback;
-        tapGesture.RequireGestureRecognizerToFail = doubleTapGesture;
+        tapGesture.ClearTrackedTouchesOnEndOrFail = true;
+        tapGesture.AllowSimultaneousExecution(panGesture);
         FingersScript.Instance.AddGesture(tapGesture);
     }
 
@@ -55,14 +84,6 @@ public class ModelGesture : MonoBehaviour
         }
     }
 
-    private void CreatePanGesture()
-    {
-        panGesture = new PanGestureRecognizer();
-        panGesture.MinimumNumberOfTouchesToTrack = 2;
-        panGesture.StateUpdated += PanGestureCallback;
-        FingersScript.Instance.AddGesture(panGesture);
-    }
-
     private void CreateSwipeGesture()
     {
         swipeGesture = new SwipeGestureRecognizer();
@@ -74,38 +95,45 @@ public class ModelGesture : MonoBehaviour
 
     private void RotateGestureCallback(DigitalRubyShared.GestureRecognizer gesture)
     {
-        if (gesture.State == GestureRecognizerState.Executing)
-        {
-            this.transform.Rotate(0.0f, 0.0f, rotateGesture.RotationRadiansDelta * Mathf.Rad2Deg);
-        }
+        Launch.Instance.HandleRotate(rotateGesture.RotationRadiansDelta * Mathf.Rad2Deg);
     }
 
     private void SwipeGestureCallback(DigitalRubyShared.GestureRecognizer gesture)
     {
         if (gesture.State == GestureRecognizerState.Ended)
         {
-            HandleSwipe(gesture.FocusX, gesture.FocusY);
-            Debug.LogFormat("Swiped from {0},{1} to {2},{3}; velocity: {4}, {5}", gesture.StartFocusX,
+            // HandleSwipe(gesture.FocusX, gesture.FocusY);
+            Debug.LogFormat("Swiped from {0},{1} to {2},{3}; velocity: {4}, {5}",
+                gesture.StartFocusX,
                 gesture.StartFocusY,
-                gesture.FocusX, gesture.FocusY, swipeGesture.VelocityX, swipeGesture.VelocityY);
+                gesture.FocusX, gesture.FocusY,
+                swipeGesture.VelocityX, swipeGesture.VelocityY);
         }
     }
 
     private void PanGestureCallback(DigitalRubyShared.GestureRecognizer gesture)
     {
-        if (gesture.State == GestureRecognizerState.Executing)
+        if (gesture.CurrentTrackedTouches.Count != 0)
         {
-            Debug.LogFormat("Panned, Location: {0}, {1}, Delta: {2}, {3}", gesture.FocusX, gesture.FocusY,
-                gesture.DeltaX,
-                gesture.DeltaY);
-
-            float deltaX = panGesture.DeltaX / 25.0f;
-            float deltaY = panGesture.DeltaY / 25.0f;
-            Vector3 pos = this.transform.position;
-            pos.x += deltaX;
-            pos.y += deltaY;
-            this.transform.position = pos;
+            GestureTouch t = gesture.CurrentTrackedTouches[0];
+            Debug.LogFormat("Pan gesture, state: {0}, position: {1},{2} -> {3},{4}", 
+                gesture.State, t.PreviousX,
+                t.PreviousY, t.X, t.Y);
         }
+
+        // if (gesture.State == GestureRecognizerState.Executing)
+        // {
+        //     Debug.LogFormat("Panned, Location: {0}, {1}, Delta: {2}, {3}", gesture.FocusX, gesture.FocusY,
+        //         gesture.DeltaX,
+        //         gesture.DeltaY);
+        //
+        //     float deltaX = panGesture.DeltaX / 25.0f;
+        //     float deltaY = panGesture.DeltaY / 25.0f;
+        //     Vector3 pos = this.transform.position;
+        //     pos.x += deltaX;
+        //     pos.y += deltaY;
+        //     this.transform.position = pos;
+        // }
     }
 
     private void TapGestureCallback(DigitalRubyShared.GestureRecognizer gesture)
