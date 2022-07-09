@@ -12,7 +12,7 @@ public class ModelGesture : MonoBehaviour
     private ScaleGestureRecognizer scaleGesture;
     private RotateGestureRecognizer rotateGesture;
     private LongPressGestureRecognizer longPressGesture;
-    
+
     /// <summary>
     /// The min speed before re-enabling threshold units on the pan gesture
     /// </summary>
@@ -41,7 +41,7 @@ public class ModelGesture : MonoBehaviour
         panGesture.SpeedUnitsToRestartThresholdUnits = MinimumSpeedBeforeThresholdUnitsIsReEnabled;
         panGesture.TimeToRestartThresholdUnits = MinimumTimeBeforeThresholdUnitsIsEnabled;
     }
-    
+
     private void CreatePanGesture()
     {
         panGesture = new PanGestureRecognizer();
@@ -116,9 +116,7 @@ public class ModelGesture : MonoBehaviour
         if (gesture.CurrentTrackedTouches.Count != 0)
         {
             GestureTouch t = gesture.CurrentTrackedTouches[0];
-            Debug.LogFormat("Pan gesture, state: {0}, position: {1},{2} -> {3},{4}", 
-                gesture.State, t.PreviousX,
-                t.PreviousY, t.X, t.Y);
+            Launch.Instance.HandlePan(gesture, t);
         }
 
         // if (gesture.State == GestureRecognizerState.Executing)

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4031895243318649879}
   - component: {fileID: 5489319121194141783}
   - component: {fileID: -3019136496208467532}
+  - component: {fileID: 1529984542}
   m_Layer: 0
   m_Name: 3_2
   m_TagString: Untagged
@@ -48,6 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Classify: 3
   Index: 2
+  StopAutoRotate: 0
 --- !u!95 &-3019136496208467532
 Animator:
   serializedVersion: 4
@@ -68,6 +70,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!65 &1529984542
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4031895243318649878}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &4031895244571502116
 PrefabInstance:
   m_ObjectHideFlags: 0
