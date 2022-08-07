@@ -19,6 +19,9 @@ public class Launch : MonoBehaviour
 {
     private ApplicationState State;
 
+    [SerializeField]
+    private Menu MenuGorup;
+
     /// <summary>
     /// 当前显示的对象
     /// </summary>
@@ -27,12 +30,6 @@ public class Launch : MonoBehaviour
 
     [SerializeField]
     private Transform ShowPos;
-
-    [SerializeField]
-    private Transform ShowPosLeft;
-
-    [SerializeField]
-    private Transform ShowPosRight;
 
     [SerializeField]
     private Animator LogoAnimator;
@@ -44,22 +41,7 @@ public class Launch : MonoBehaviour
     private GameObject[] HomeModelGroup;
 
     [SerializeField]
-    private Transform[] MenuPosArr;
-
-    [SerializeField]
     private Transform[] HomePosArr;
-
-    [SerializeField]
-    private ModelData[] ShowList0;
-
-    [SerializeField]
-    private ModelData[] ShowList1;
-
-    [SerializeField]
-    private ModelData[] ShowList2;
-
-    [SerializeField]
-    private ModelData[] ShowList3;
 
     public float ShowTime = 0.5f;
 
@@ -98,10 +80,10 @@ public class Launch : MonoBehaviour
 
                 StartShow();
                 MoveToCenter(clickedObject);
-                MoveToMenu(clickedObject);
-                CreateRollList(modelData);
+                HideHomeModel(clickedObject);
 
                 CurrentSelectedClassify = modelData.Classify;
+                MenuGorup.SetClassify(CurrentSelectedClassify);
             }
         }
         else if (State == ApplicationState.Show)
@@ -112,8 +94,7 @@ public class Launch : MonoBehaviour
                 if (CurrentSelectedClassify != modelData.Classify)
                 {
                     MoveToCenter(clickedObject);
-                    MoveToMenu(clickedObject);
-                    CreateRollList(modelData);
+                    HideHomeModel(clickedObject);
                 }
                 else
                 {
@@ -185,94 +166,18 @@ public class Launch : MonoBehaviour
         _currentShowModel = clickedObject;
     }
 
-    private void CreateRollList(ModelData modelData)
+
+    private void HideHomeModel(GameObject clickedObject)
     {
-        var modelDataClassify = modelData.Classify;
-        var modelIndex = modelData.Index;
-        ModelData[] targetList = null;
-        if (modelDataClassify == 0)
-        {
-            targetList = ShowList0;
-        }
-        else if (modelDataClassify == 1)
-        {
-            targetList = ShowList1;
-        }
-        else if (modelDataClassify == 2)
-        {
-            targetList = ShowList2;
-        }
-        else if (modelDataClassify == 3)
-        {
-            targetList = ShowList3;
-        }
-
-        CreateLeft(targetList);
-        CreateRight(targetList);
-    }
-
-    private void CreateLeft(ModelData[] targetList)
-    {
-        if (targetList.Length == 3)
-        {
-            for (int i = 0; i < ShowPosLeft.childCount; i++)
-            {
-                var c = ShowPosLeft.GetChild(i);
-                c.transform.SetParent(null);
-                c.transform.position = new Vector3(-100, 0, 0);
-            }
-
-            var model = targetList[2];
-            model.transform.SetParent(ShowPosLeft, true);
-            model.transform.localPosition = Vector3.zero;
-            model.GetComponent<Animator>().SetBool("show", false);
-            ShowPosLeft.gameObject.SetActive(true);
-        }
-        else
-        {
-            ShowPosLeft.gameObject.SetActive(false);
-        }
-    }
-
-    private void CreateRight(ModelData[] targetList)
-    {
-        if (targetList.Length >= 2)
-        {
-            for (int i = 0; i < ShowPosRight.childCount; i++)
-            {
-                var c = ShowPosRight.GetChild(i);
-                c.transform.SetParent(null);
-                c.transform.position = new Vector3(-100, 0, 0);
-            }
-
-            var model = targetList[1];
-            model.transform.SetParent(ShowPosRight, true);
-            model.GetComponent<Animator>().SetBool("show", false);
-            model.transform.localPosition = Vector3.zero;
-            ShowPosRight.gameObject.SetActive(true);
-        }
-        else
-        {
-            ShowPosRight.gameObject.SetActive(false);
-        }
-    }
-
-    private void MoveToMenu(GameObject clickedObject)
-    {
-        var menuIndex = 0;
         for (int i = 0; i < HomeModelGroup.Length; i++)
         {
             var m = HomeModelGroup[i];
             //不点击的这个 依次去菜单中
             if (m != clickedObject)
             {
-                var menuPos = MenuPosArr[menuIndex];
-                m.transform.parent = menuPos;
-                m.transform.localScale = Vector3.one;
-                m.transform.DOLocalMove(Vector3.zero, ShowTime);
+                m.transform.localScale = Vector3.zero;
                 m.GetComponent<Animator>().SetBool("show", false);
                 m.GetComponent<Animator>().SetTrigger("idle");
-                menuIndex++;
             }
         }
     }
@@ -285,27 +190,84 @@ public class Launch : MonoBehaviour
             var modelIndex = m.GetComponent<HomeModelIndex>();
             var targetPosTrans = HomePosArr[modelIndex.Index];
             m.transform.SetParent(targetPosTrans);
-            m.transform.DOLocalMove(Vector3.zero, ShowTime);
+            m.transform.localPosition = Vector3.zero;
+            m.transform.DOScale(Vector3.one, ShowTime);
             m.transform.localScale = Vector3.one;
+            m.transform.localRotation = Quaternion.identity;
             m.GetComponent<Animator>().SetBool("show", true);
         }
 
         CurrentSelectedClassify = -1;
         _currentShowModel = null;
-        ShowPosLeft.gameObject.SetActive(false);
-        ShowPosRight.gameObject.SetActive(false);
+    }
+
+    private bool isPlaying = false;
+
+    public void SelectClassify(int classify)
+    {
+        if (CurrentSelectedClassify == classify || isPlaying)
+        {
+            return;
+        }
+
+        isPlaying = true;
+
+        var newModel = GameObject.Find(classify + "_0");
+        SwitchModel(newModel, _currentShowModel, () =>
+        {
+            CurrentSelectedClassify = classify;
+            _currentShowModel = newModel;
+            isPlaying = false;
+        });
+    }
+
+    public void SelectStyle(int style)
+    {
+        var newModel = GameObject.Find(CurrentSelectedClassify + "_" + style);
+        if (newModel == _currentShowModel || isPlaying)
+        {
+            return;
+        }
+
+        isPlaying = true;
+        SwitchModel(newModel, _currentShowModel, () =>
+        {
+            _currentShowModel = newModel;
+            isPlaying = false;
+        });
+    }
+
+    private void SwitchModel(GameObject n, GameObject o, Action cb)
+    {
+        n.transform.parent = ShowPos;
+        n.transform.localPosition = Vector3.zero;
+        n.transform.DOScale(Vector3.one, ShowTime);
+
+        o.transform.parent = null;
+        o.transform.DOScale(Vector3.zero, ShowTime).OnComplete(() =>
+        {
+            n.GetComponent<Animator>().SetBool("show", true);
+            o.GetComponent<Animator>().SetBool("show", false);
+
+            cb?.Invoke();
+        });
+    }
+
+    public void SetMenuVisible(bool v)
+    {
+        MenuGorup.gameObject.SetActive(v);
     }
 
     public void Start()
     {
-        BtnBack.gameObject.SetActive(false);
+        SetMenuVisible(false);
         BtnBack.onClick.AddListener(Back);
         GoHome();
     }
 
     public void StartShow()
     {
-        BtnBack.gameObject.SetActive(true);
+        SetMenuVisible(true);
         State = ApplicationState.Show;
         LogoAnimator.SetTrigger("show");
     }
@@ -313,13 +275,13 @@ public class Launch : MonoBehaviour
     private void GoHome()
     {
         Debug.Log("返回主界面");
+        SetMenuVisible(false);
         LogoAnimator.SetTrigger("home");
         ModelBackToHome();
     }
 
     public void Back()
     {
-        BtnBack.gameObject.SetActive(false);
         State = ApplicationState.Welcome;
         GoHome();
     }
