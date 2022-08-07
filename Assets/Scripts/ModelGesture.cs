@@ -32,7 +32,7 @@ public class ModelGesture : MonoBehaviour
         CreatePanGesture();
         CreateTapGesture();
         // CreateSwipeGesture();
-        // CreateScaleGesture();
+        CreateScaleGesture();
         // CreateRotateGesture();
     }
 
@@ -80,7 +80,8 @@ public class ModelGesture : MonoBehaviour
         {
             Debug.LogFormat("Scaled: {0}, Focus: {1}, {2}", scaleGesture.ScaleMultiplier, scaleGesture.FocusX,
                 scaleGesture.FocusY);
-            this.transform.localScale *= scaleGesture.ScaleMultiplier;
+            Debug.LogError(scaleGesture.ScaleDistanceDelta);
+            Launch.Instance.HandleScale(scaleGesture.ScaleDistanceDelta);
         }
     }
 
@@ -95,7 +96,7 @@ public class ModelGesture : MonoBehaviour
 
     private void RotateGestureCallback(DigitalRubyShared.GestureRecognizer gesture)
     {
-        Launch.Instance.HandleRotate(rotateGesture.RotationRadiansDelta * Mathf.Rad2Deg);
+        Launch.Instance.HandleRotate(rotateGesture.RotationDegreesDelta, 0);
     }
 
     private void SwipeGestureCallback(DigitalRubyShared.GestureRecognizer gesture)

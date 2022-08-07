@@ -144,11 +144,19 @@ public class Launch : MonoBehaviour
         _currentShowModel.GetComponent<Animator>().SetBool("show", true);
     }
 
-    public void HandleRotate(float rotate)
+    public void HandleRotate(float rotateX, float rotateY)
     {
         if (_currentShowModel != null)
         {
-            _currentShowModel.transform.Rotate(0, rotate, 0);
+            _currentShowModel.transform.Rotate(rotateY, rotateX, 0);
+        }
+    }
+
+    public void HandleScale(float scaleValue)
+    {
+        if (_currentShowModel != null)
+        {
+            _currentShowModel.transform.localScale += Vector3.one * scaleValue;
         }
     }
 
@@ -329,7 +337,8 @@ public class Launch : MonoBehaviour
         else if (gesture.State == GestureRecognizerState.Executing)
         {
             var deltaX = t.DeltaX;
-            HandleRotate(-deltaX);
+            var deltaY = t.DeltaY;
+            HandleRotate(-deltaX, deltaY);
         }
         else if (gesture.State == GestureRecognizerState.Ended)
         {
