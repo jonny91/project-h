@@ -19,6 +19,8 @@ public class Launch : MonoBehaviour
 {
     private ApplicationState State;
 
+    public float MaxScaleSize = 2.0f;
+
     [SerializeField]
     private Menu MenuGorup;
 
@@ -133,11 +135,15 @@ public class Launch : MonoBehaviour
         }
     }
 
+
     public void HandleScale(float scaleValue)
     {
         if (_currentShowModel != null)
         {
-            _currentShowModel.transform.localScale += Vector3.one * scaleValue;
+            _currentShowModel.transform.localScale = Vector3.one *
+                                                     Math.Max(Math.Min(
+                                                         _currentShowModel.transform.localScale.x + scaleValue,
+                                                         MaxScaleSize), 1f);
         }
     }
 
@@ -184,11 +190,18 @@ public class Launch : MonoBehaviour
 
     private void ModelBackToHome()
     {
+        if (_currentShowModel != null)
+        {
+            _currentShowModel.SetActive(false);
+            _currentShowModel.GetComponent<Animator>().SetBool("show", false);
+        }
+
         for (int i = 0; i < HomeModelGroup.Length; i++)
         {
             var m = HomeModelGroup[i];
             var modelIndex = m.GetComponent<HomeModelIndex>();
             var targetPosTrans = HomePosArr[modelIndex.Index];
+            m.SetActive(true);
             m.transform.SetParent(targetPosTrans);
             m.transform.localPosition = Vector3.zero;
             m.transform.DOScale(Vector3.one, ShowTime);
