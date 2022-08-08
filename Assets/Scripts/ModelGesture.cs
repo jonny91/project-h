@@ -29,6 +29,7 @@ public class ModelGesture : MonoBehaviour
 
     private void Start()
     {
+        FingersScript.Instance.ShowTouches = false;
         CreatePanGesture();
         CreateTapGesture();
         // CreateSwipeGesture();
@@ -80,7 +81,7 @@ public class ModelGesture : MonoBehaviour
         {
             Debug.LogFormat("Scaled: {0}, Focus: {1}, {2}", scaleGesture.ScaleMultiplier, scaleGesture.FocusX,
                 scaleGesture.FocusY);
-            Debug.LogError(scaleGesture.ScaleDistanceDelta);
+            Debug.Log(scaleGesture.ScaleDistanceDelta);
             Launch.Instance.HandleScale(scaleGesture.ScaleDistanceDelta);
         }
     }
