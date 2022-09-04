@@ -320,6 +320,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 112963340}
   m_CullTransparentMesh: 1
+--- !u!1 &177188968 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3474573726490291865, guid: 9aa29c03c114948af8a2854d0390a016, type: 3}
+  m_PrefabInstance: {fileID: 1437256438}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &226477886
 GameObject:
   m_ObjectHideFlags: 0
@@ -1096,6 +1101,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 533937313}
   m_CullTransparentMesh: 1
+--- !u!1 &542965486 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6750014350690244774, guid: d924504e10b2b46659f0f9fd74123bd0, type: 3}
+  m_PrefabInstance: {fileID: 1435699523}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &612196719
 GameObject:
   m_ObjectHideFlags: 0
@@ -1283,6 +1293,11 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!1 &689612743 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 72421903791347039, guid: c7bd131ca79e94944809556ea9839bd9, type: 3}
+  m_PrefabInstance: {fileID: 371549486}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1613,6 +1628,178 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d10b9bf497225413a87148ca84fc4195, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 281664819}
+    - {fileID: 1172272204}
+    - {fileID: 1378939694}
+    - {fileID: 542965486}
+    - {fileID: 989674430}
+    - {fileID: 307666076}
+    - {fileID: 1109511910}
+    - {fileID: 177188968}
+    - {fileID: 1391740098}
+    - {fileID: 689612743}
+    - {fileID: 2095134880}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: ModelDic
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[UnityEngine.GameObject,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+        mscorlib]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 11
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: 0_0
+    - Name: $v
+      Entry: 10
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: 0_2
+    - Name: $v
+      Entry: 10
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: 1_0
+    - Name: $v
+      Entry: 10
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: 1_1
+    - Name: $v
+      Entry: 10
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: 1_2
+    - Name: $v
+      Entry: 10
+      Data: 4
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: 2_0
+    - Name: $v
+      Entry: 10
+      Data: 5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: 2_1
+    - Name: $v
+      Entry: 10
+      Data: 6
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: 2_2
+    - Name: $v
+      Entry: 10
+      Data: 7
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: 3_0
+    - Name: $v
+      Entry: 10
+      Data: 8
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: 3_1
+    - Name: $v
+      Entry: 10
+      Data: 9
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: 3_2
+    - Name: $v
+      Entry: 10
+      Data: 10
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   MaxScaleSize: 2
   MenuGorup: {fileID: 2059055678}
   _currentShowModel: {fileID: 0}
@@ -1974,6 +2161,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: aed3b89d2612d6a40a00ad39d36b5c00, type: 2}
+--- !u!1 &989674430 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4525654641577481115, guid: b7cb8f5f12f8f4b14a89f4cb457809b9, type: 3}
+  m_PrefabInstance: {fileID: 737700194}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1052809934
 GameObject:
   m_ObjectHideFlags: 0
@@ -2073,6 +2265,16 @@ Transform:
   m_Father: {fileID: 1420294630}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1109511910 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4700880464709436974, guid: ef6a14e1088c74a65ab6f0e452fa9fdd, type: 3}
+  m_PrefabInstance: {fileID: 871000700}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1172272204 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7247457594611100277, guid: 42d969d26647940d88c222f8e61b86ae, type: 3}
+  m_PrefabInstance: {fileID: 925695296}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1231212217
 GameObject:
   m_ObjectHideFlags: 0
@@ -4245,6 +4447,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2061407492}
   m_CullTransparentMesh: 1
+--- !u!1 &2095134880 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4031895243318649878, guid: 20b240bd4054c4289a47737bb7a023ad, type: 3}
+  m_PrefabInstance: {fileID: 1529984538}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2116771488
 GameObject:
   m_ObjectHideFlags: 0

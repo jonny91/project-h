@@ -12,10 +12,11 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using DigitalRubyShared;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Launch : MonoBehaviour
+public class Launch : SerializedMonoBehaviour
 {
     private ApplicationState State;
 
@@ -45,9 +46,13 @@ public class Launch : MonoBehaviour
     [SerializeField]
     private Transform[] HomePosArr;
 
+    [SerializeField]
+    public Dictionary<string, GameObject> ModelDic;
+
     public float ShowTime = 0.5f;
 
     public static Launch Instance;
+    
 
     private void Awake()
     {
@@ -225,7 +230,7 @@ public class Launch : MonoBehaviour
 
         isPlaying = true;
 
-        var newModel = GameObject.Find(classify + "_0");
+        var newModel = ModelDic[classify + "_0"];
         SwitchModel(newModel, _currentShowModel, () =>
         {
             CurrentSelectedClassify = classify;
@@ -236,7 +241,7 @@ public class Launch : MonoBehaviour
 
     public void SelectStyle(int style)
     {
-        var newModel = GameObject.Find(CurrentSelectedClassify + "_" + style);
+        var newModel = ModelDic[CurrentSelectedClassify + "_" + style];
         if (newModel == _currentShowModel || isPlaying)
         {
             return;
