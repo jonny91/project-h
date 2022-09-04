@@ -46,10 +46,9 @@ public class Launch : SerializedMonoBehaviour
     [SerializeField]
     private Transform[] HomePosArr;
 
-    [SerializeField]
     public Dictionary<string, GameObject> ModelDic;
 
-    public float ShowTime = 0.5f;
+    private float ShowTime = 0.2f;
 
     public static Launch Instance;
     
