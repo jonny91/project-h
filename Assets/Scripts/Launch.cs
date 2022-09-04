@@ -256,6 +256,7 @@ public class Launch : SerializedMonoBehaviour
 
     private void SwitchModel(GameObject n, GameObject o, Action cb)
     {
+        n.SetActive(true);
         n.transform.parent = ShowPos;
         n.transform.localPosition = Vector3.zero;
         n.transform.DOScale(Vector3.one, ShowTime);
@@ -295,6 +296,7 @@ public class Launch : SerializedMonoBehaviour
         SetMenuVisible(false);
         LogoAnimator.SetTrigger("home");
         ModelBackToHome();
+        _currentShowModel = null;
     }
 
     public void Back()
