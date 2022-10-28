@@ -38,9 +38,6 @@ public class Launch : SerializedMonoBehaviour
     private Animator LogoAnimator;
 
     [SerializeField]
-    private Button BtnBack;
-
-    [SerializeField]
     private GameObject[] HomeModelGroup;
 
     [SerializeField]
@@ -144,9 +141,9 @@ public class Launch : SerializedMonoBehaviour
     {
         if (_currentShowModel != null)
         {
-            _currentShowModel.transform.localScale = Vector3.one *
-                                                     Math.Max(Math.Min(
-                                                         _currentShowModel.transform.localScale.x + scaleValue,
+            _currentShowModel.transform.localScale =
+                Vector3.one * Math.Max(
+                    Math.Min(_currentShowModel.transform.localScale.x + scaleValue,
                                                          MaxScaleSize), 1f);
         }
     }
@@ -279,7 +276,6 @@ public class Launch : SerializedMonoBehaviour
     public void Start()
     {
         SetMenuVisible(false);
-        BtnBack.onClick.AddListener(Back);
         GoHome();
     }
 
